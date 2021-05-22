@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-04-2021 a las 00:41:25
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.8
+-- Tiempo de generación: 21-05-2021 a las 06:02:09
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `administrador` (
   `Username` varchar(200) NOT NULL,
-  `Contraseña` varchar(200) NOT NULL
+  `Contraseña` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -37,8 +37,30 @@ CREATE TABLE `administrador` (
 --
 
 INSERT INTO `administrador` (`Username`, `Contraseña`) VALUES
-('Admin', 'admin'),
-('Admin2', 'admin');
+('Admin', 'admin123'),
+('alex', '123'),
+('mirco', '123');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `Id_Categoria` int(11) NOT NULL,
+  `nombre` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`Id_Categoria`, `nombre`) VALUES
+(1, 'Bebida'),
+(2, 'Postre'),
+(3, 'Hamburguesas'),
+(4, 'Platos de Fondo');
 
 -- --------------------------------------------------------
 
@@ -123,8 +145,22 @@ CREATE TABLE `plato` (
   `NombrePlato` varchar(255) NOT NULL,
   `Precio` decimal(5,2) NOT NULL,
   `Descripcion` text NOT NULL,
-  `Imagen` varchar(255) NOT NULL
+  `Imagen` varchar(255) NOT NULL,
+  `Id_Categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `plato`
+--
+
+INSERT INTO `plato` (`Id_Plato`, `NombrePlato`, `Precio`, `Descripcion`, `Imagen`, `Id_Categoria`) VALUES
+(19, 'Salchipapa', '17.00', 'sALCHICHAS CON PAPA', 'salchipapa.JPG', 1),
+(21, 'Anticucho de corazon', '21.00', 'Anticucho d ecorazon rsotixado                         jajjaa ', 'anticucho_corazon.JPG', 2),
+(22, 'ALITAS BBQ BUFALO', '35.00', 'pizza para 8 personas rikaaa                          ', 'alitas_bbq.JPG', 2),
+(24, 'Hamburguesa 250gr', '15.00', 'Hamburguesa', 'hamburguesa.JPG', 3),
+(25, 'Helado', '7.00', 'Helado de vainilla', 'helado.jpg', 2),
+(26, 'Antipollos', '14.00', 'Anticuhco de pollo ', 'anti_pollo.JPG', 4),
+(27, 'Mollejitas', '24.00', 'Rica choirzza cocinada en aceite negro de camion raaaaaaaaaaaaaaa \r\nMACACO0', 'choripapa.JPG', 4);
 
 --
 -- Índices para tablas volcadas
@@ -135,6 +171,12 @@ CREATE TABLE `plato` (
 --
 ALTER TABLE `administrador`
   ADD PRIMARY KEY (`Username`);
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`Id_Categoria`);
 
 --
 -- Indices de la tabla `cliente`
@@ -182,6 +224,12 @@ ALTER TABLE `plato`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `Id_Categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
@@ -215,36 +263,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de la tabla `plato`
 --
 ALTER TABLE `plato`
-  MODIFY `Id_Plato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `detallepago`
---
-ALTER TABLE `detallepago`
-  ADD CONSTRAINT `detallepago_ibfk_1` FOREIGN KEY (`Id_Pago`) REFERENCES `pago` (`Id_Pago`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `detallepedido`
---
-ALTER TABLE `detallepedido`
-  ADD CONSTRAINT `detallepedido_ibfk_1` FOREIGN KEY (`IdPlato`) REFERENCES `plato` (`Id_Plato`) ON DELETE CASCADE,
-  ADD CONSTRAINT `detallepedido_ibfk_2` FOREIGN KEY (`IdPedido`) REFERENCES `pedido` (`Id_Pedido`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `pago`
---
-ALTER TABLE `pago`
-  ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`IdDetPedido`) REFERENCES `detallepedido` (`IdDetPedido`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `pedido`
---
-ALTER TABLE `pedido`
-  ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`Id_Cliente`) REFERENCES `cliente` (`Id_Cliente`) ON UPDATE CASCADE;
+  MODIFY `Id_Plato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

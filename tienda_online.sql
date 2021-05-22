@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-09-2017 a las 00:23:20
--- Versión del servidor: 10.1.25-MariaDB
--- Versión de PHP: 5.6.31
+-- Tiempo de generación: 21-05-2021 a las 06:01:48
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -59,6 +58,13 @@ CREATE TABLE `clientes` (
   `comentario` varchar(300) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombre`, `apellidos`, `email`, `telefono`, `comentario`) VALUES
+(1, 'alex', 'Paullo', 'alexestrada@adawd.htms', '98432432', 'dasds');
+
 -- --------------------------------------------------------
 
 --
@@ -71,8 +77,15 @@ CREATE TABLE `detalle_pedidos` (
   `pelicula_id` int(11) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT '1'
+  `estado` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_pedidos`
+--
+
+INSERT INTO `detalle_pedidos` (`id`, `pedido_id`, `pelicula_id`, `precio`, `cantidad`, `estado`) VALUES
+(1, 1, 11, '17.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -85,8 +98,15 @@ CREATE TABLE `pedidos` (
   `cliente_id` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `fecha` date NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT '1'
+  `estado` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `cliente_id`, `total`, `fecha`, `estado`) VALUES
+(1, 1, '17.00', '2021-05-19', 1);
 
 -- --------------------------------------------------------
 
@@ -102,7 +122,7 @@ CREATE TABLE `peliculas` (
   `precio` decimal(10,2) NOT NULL,
   `categoria_id` int(10) NOT NULL,
   `fecha` date NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT '1'
+  `estado` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -119,9 +139,9 @@ INSERT INTO `peliculas` (`id`, `titulo`, `descripcion`, `foto`, `precio`, `categ
 (7, 'LEGO', 'FULL ANIMADA', 'lego.jpg', '17.00', 5, '2017-09-03', 1),
 (8, 'RAMBO', 'FULL ACCION', 'rambo.jpg', '35.00', 1, '2017-09-03', 1),
 (9, 'RESIDENT', 'FULL ACCION', 'resident.jpg', '36.00', 1, '2017-09-03', 1),
-(10, 'SIMPSON', 'FULL', 'simpsons.jpg', '31.00', 4, '2017-09-03', 1),
+(10, 'SIMPSON', '                        FULL                          ', 'simpsons.jpg', '31.00', 4, '2021-05-18', 1),
 (11, 'TED', 'FULL COMEDIA', 'ted.jpg', '17.00', 2, '2017-09-03', 1),
-(12, 'TRANSFORMERS', 'FULL ACCION', 'transformer.jpg', '40.00', 1, '2017-09-03', 1);
+(12, 'TRANSFORMERS', '                        FULL ACCION      de transformers la wea estaa raaaaadsandfjsahcsd nefkjfoksehfsklhfusdchnfuisrhfwjer                                                                        ', 'transformer.jpg', '40.00', 1, '2021-05-19', 1);
 
 -- --------------------------------------------------------
 
@@ -133,7 +153,7 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nombre_usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `clave` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT '1'
+  `estado` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -185,31 +205,37 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `categorias`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedidos`
 --
 ALTER TABLE `detalle_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
